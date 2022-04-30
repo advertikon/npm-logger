@@ -1,0 +1,10 @@
+node_modules
+.eslintrc.json
+tsconfig.json
+.idea
+.git
+*.ts
+/**/*.ts
+
+!index.d.ts
+!logger.d.ts

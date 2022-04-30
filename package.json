@@ -1,0 +1,24 @@
+{
+  "name": "@bogochunas/logger",
+  "version": "1.1.2",
+  "description": "Bunyan logger wrapper",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc --declaration"
+  },
+  "author": "Maxim Bogochunas",
+  "license": "ISC",
+  "dependencies": {
+    "bunyan": "^1.8.15",
+    "ulid": "^2.3.0"
+  },
+  "devDependencies": {
+    "@tsconfig/node16": "^1.0.2",
+    "@types/bunyan": "^1.8.8",
+    "@types/express": "^4.17.13",
+    "@typescript-eslint/eslint-plugin": "^5.18.0",
+    "@typescript-eslint/parser": "^5.18.0"
+  }
+}
