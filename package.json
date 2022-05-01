@@ -1,8 +1,7 @@
 {
   "name": "@bogochunas/logger",
-  "version": "1.1.2",
+  "version": "1.2.0",
   "description": "Bunyan logger wrapper",
-  "type": "module",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
