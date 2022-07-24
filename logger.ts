@@ -10,6 +10,7 @@ interface LoggerRequest extends Request {
 interface LoggerResponse extends Response {
     start_time?: bigint;
     end_time?: bigint;
+    sentry?: string;
 }
 
 export const logRequest = () => {
@@ -29,6 +30,7 @@ export const logRequest = () => {
                 resp: (resp: LoggerResponse) => {
                     return {
                         time: Number(BigInt(resp.end_time ?? 0) - BigInt(resp.start_time ?? 0)) / 1000000000,
+                        error_id: resp.sentry ?? ''
                     };
                 }
             }
