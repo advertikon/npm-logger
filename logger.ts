@@ -1,5 +1,5 @@
 import Logger, { LoggerOptions } from 'bunyan';
-import { NextFunction, Request, Response } from 'express';
+import { NextFunction, Request, RequestHandler, Response } from 'express';
 import { ulid } from 'ulid';
 
 interface LoggerRequest extends Request {
@@ -13,7 +13,7 @@ interface LoggerResponse extends Response {
     sentry?: string;
 }
 
-export const logRequest = () => {
+export const logRequest = (): RequestHandler => {
     return function (req: LoggerRequest, resp: LoggerResponse, next: NextFunction) {
         resp.start_time = process.hrtime.bigint();
 
