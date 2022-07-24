@@ -2,27 +2,44 @@ import Logger, { LoggerOptions } from 'bunyan';
 import { NextFunction, Request, Response } from 'express';
 import { ulid } from 'ulid';
 
-export interface LoggerRequest extends Request {
+interface LoggerRequest extends Request {
     logger?: Logger;
     req_id?: string;
 }
 
+interface LoggerResponse extends Response {
+    start_time?: bigint;
+    end_time?: bigint;
+}
+
 export const logRequest = () => {
-    return function (req: LoggerRequest, resp: Response, next: NextFunction) {
+    return function (req: LoggerRequest, resp: LoggerResponse, next: NextFunction) {
+        resp.start_time = process.hrtime.bigint();
+
         createLogger({
             name: process.env.npm_package_name as string,
             request: req,
             serializers: {
-                req: (req) => {
+                req: (req: LoggerRequest) => {
                     return {
                         method: req.method,
                         url: req.url,
+                    };
+                },
+                resp: (resp: LoggerResponse) => {
+                    return {
+                        time: Number(BigInt(resp.end_time ?? 0) - BigInt(resp.start_time ?? 0)) / 1000000000,
                     };
                 }
             }
         });
 
-        req.logger?.info({ req });
+        resp.on('finish', () => {
+            resp.end_time = process.hrtime.bigint();
+            req.logger?.info({ resp: resp }, 'Request end');
+        });
+
+        req.logger?.info({ req }, 'Request start');
         next();
     }
 }
