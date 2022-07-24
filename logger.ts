@@ -1,43 +1,39 @@
 import Logger, { LoggerOptions } from 'bunyan';
-import { Request, Response, NextFunction } from 'express';
+import { NextFunction, Request, Response } from 'express';
 import { ulid } from 'ulid';
 
-export const logRequest = (req: Request, resp: Response, next: NextFunction) => {
-    createLogger({
-        name: process.env.npm_package_name as string,
-        request: req,
-        serializers: {
-            req: (req) => {
-                const ret =  {
-                    method: req.method,
-                    url: req.url,
-                };
+export interface LoggerRequest extends Request {
+    logger?: Logger;
+    req_id?: string;
+}
 
-                if (req.headers['x-orig-req']) {
-                    // @ts-ignore
-                    ret.orig_request = req.headers['x-orig-req'];
+export const logRequest = () => {
+    return function (req: LoggerRequest, resp: Response, next: NextFunction) {
+        createLogger({
+            name: process.env.npm_package_name as string,
+            request: req,
+            serializers: {
+                req: (req) => {
+                    return {
+                        method: req.method,
+                        url: req.url,
+                    };
                 }
-
-                return ret;
             }
-        }
-    });
+        });
 
-    // @ts-ignore
-    req.logger.info({ req });
+        req.logger?.info({ req });
+        next();
+    }
+}
 
-    next();
-};
-
-export const createLogger = (opt: LoggerOptions & {request: Request}): Logger => {
+export const createLogger = (opt: LoggerOptions & {request: LoggerRequest}): Logger => {
     const { request, ...options } = opt;
     const logger = Logger.createLogger(options);
 
     if (request) {
-        const id = ulid();
-        // @ts-ignore
+        const id = (request.headers['x-req-id'] ? request.headers['x-req-id'] : ulid()) as string;
         request.logger = logger.child({ req_id: id });
-        // @ts-ignore
         request.req_id = id;
     }
 
