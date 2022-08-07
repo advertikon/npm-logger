@@ -46,7 +46,7 @@ export const logRequest = (): RequestHandler => {
     }
 }
 
-export const createLogger = (opt: LoggerOptions & {request: LoggerRequest}): Logger => {
+export const createLogger = (opt: LoggerOptions & {request?: LoggerRequest}): Logger => {
     const { request, ...options } = opt;
     const logger = Logger.createLogger(options);
 
