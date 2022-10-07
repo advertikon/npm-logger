@@ -1,0 +1,10 @@
+branches:
+  - master
+repositoryUrl: "https://github.com/advertikon/npm-fetch.git"
+plugins:
+  - "@semantic-release/commit-analyzer"
+  - "@semantic-release/changelog"
+  - "@semantic-release/release-notes-generator"
+  - "@semantic-release/npm"
+  - "@semantic-release/git"
+  - "@semantic-release/github"
