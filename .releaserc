@@ -1,6 +1,6 @@
 branches:
   - master
-repositoryUrl: "https://github.com/advertikon/npm-fetch.git"
+repositoryUrl: "https://github.com/advertikon/npm-logger.git"
 plugins:
   - "@semantic-release/commit-analyzer"
   - "@semantic-release/changelog"
