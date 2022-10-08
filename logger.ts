@@ -30,7 +30,8 @@ export const logRequest = (): RequestHandler => {
                 resp: (resp: LoggerResponse) => {
                     return {
                         time: Number(BigInt(resp.end_time ?? 0) - BigInt(resp.start_time ?? 0)) / 1000000000,
-                        error_id: resp.sentry ?? ''
+                        error_id: resp.sentry ?? '',
+                        status_code: resp.statusCode
                     };
                 }
             }
