@@ -2,7 +2,7 @@ import Logger, { LoggerOptions } from 'bunyan';
 import { NextFunction, Request, RequestHandler, Response } from 'express';
 import { ulid } from 'ulid';
 
-interface LoggerRequest extends Request {
+export type LoggerRequest = Request & {
     logger?: Logger;
     req_id?: string;
 }
