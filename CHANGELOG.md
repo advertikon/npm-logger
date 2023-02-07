@@ -1,3 +1,10 @@
+## [1.5.1](https://github.com/advertikon/npm-logger/compare/v1.5.0...v1.5.1) (2023-02-07)
+
+
+### Bug Fixes
+
+* expose Logger type ([c46269d](https://github.com/advertikon/npm-logger/commit/c46269ddb93f79ab3b458f956a34ce6b6d3fff86))
+
 # [1.5.0](https://github.com/advertikon/npm-logger/compare/v1.4.6...v1.5.0) (2022-10-08)
 
 
