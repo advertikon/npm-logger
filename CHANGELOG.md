@@ -1,3 +1,10 @@
+## [1.5.2](https://github.com/advertikon/npm-logger/compare/v1.5.1...v1.5.2) (2023-02-07)
+
+
+### Bug Fixes
+
+* remove idea files ([6ff3a2b](https://github.com/advertikon/npm-logger/commit/6ff3a2b73c3dbbf926168fb01136ba487805dbec))
+
 ## [1.5.1](https://github.com/advertikon/npm-logger/compare/v1.5.0...v1.5.1) (2023-02-07)
 
 
