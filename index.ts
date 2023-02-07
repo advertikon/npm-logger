@@ -1,1 +1,1 @@
-export { logRequest, createLogger } from './logger.js';
+export { logRequest, createLogger, LoggerRequest } from './logger.js';
