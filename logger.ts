@@ -13,7 +13,12 @@ interface LoggerResponse extends Response {
     sentry?: string;
 }
 
-export const logRequest = (): RequestHandler => {
+type Config = {
+    requestCb?: (r: Request) => Record<string, string>;
+    responseCb?: (r: Response) => Record<string, string>;
+}
+
+export const logRequest = (config?: Config): RequestHandler => {
     return function (req: LoggerRequest, resp: LoggerResponse, next: NextFunction) {
         resp.start_time = process.hrtime.bigint();
 
@@ -22,17 +27,29 @@ export const logRequest = (): RequestHandler => {
             request: req,
             serializers: {
                 req: (req: LoggerRequest) => {
-                    return {
+                    const data = {
                         method: req.method,
                         url: req.url,
                     };
+
+                    if (config?.requestCb) {
+                        return { ...data, ...config.requestCb(req) }
+                    }
+
+                    return data;
                 },
                 resp: (resp: LoggerResponse) => {
-                    return {
+                    const data = {
                         time: Number(BigInt(resp.end_time ?? 0) - BigInt(resp.start_time ?? 0)) / 1000000000,
                         error_id: resp.sentry ?? '',
                         status_code: resp.statusCode
                     };
+
+                    if (config?.responseCb) {
+                        return { ...data, ...config?.responseCb(resp) }
+                    }
+
+                    return data;
                 }
             }
         });
