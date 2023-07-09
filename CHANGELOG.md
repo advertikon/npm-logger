@@ -1,3 +1,10 @@
+# [1.8.0](https://github.com/advertikon/npm-logger/compare/v1.7.0...v1.8.0) (2023-07-09)
+
+
+### Features
+
+* add request ID to request object ([3dbe42a](https://github.com/advertikon/npm-logger/commit/3dbe42af0fe8fce2725c20500b497ce96c1354ee))
+
 # [1.7.0](https://github.com/advertikon/npm-logger/compare/v1.6.0...v1.7.0) (2023-07-09)
 
 
