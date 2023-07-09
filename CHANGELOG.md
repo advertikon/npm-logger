@@ -1,3 +1,10 @@
+# [1.7.0](https://github.com/advertikon/npm-logger/compare/v1.6.0...v1.7.0) (2023-07-09)
+
+
+### Features
+
+* code refactoring. Reap package name and version from package.json. Log request only once when responce is finishes ([66d474f](https://github.com/advertikon/npm-logger/commit/66d474f29ef977df7d284a22353bb0749e036c94))
+
 # [1.6.0](https://github.com/advertikon/npm-logger/compare/v1.5.2...v1.6.0) (2023-05-20)
 
 

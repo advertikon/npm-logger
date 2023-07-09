@@ -1,6 +1,6 @@
 {
   "name": "@bogochunas/logger",
-  "version": "1.6.0",
+  "version": "1.7.0",
   "description": "Bunyan logger wrapper",
   "exports": "./index.js",
   "main": "index.js",
