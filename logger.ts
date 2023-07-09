@@ -1,16 +1,15 @@
-import Logger, { LoggerOptions } from 'bunyan';
+import Logger from 'bunyan';
 import { NextFunction, Request, RequestHandler, Response } from 'express';
+import * as fs from 'fs';
 import { ulid } from 'ulid';
 
-export type LoggerRequest = Request & {
-    logger?: Logger;
-    req_id?: string;
-}
+export const REQUEST_HEADER_ID = 'x-req-id';
+export const REQUEST_ID = 'req_id'
 
-interface LoggerResponse extends Response {
-    start_time?: bigint;
-    end_time?: bigint;
-    sentry?: string;
+export type LoggerRequest = Request & {
+    logger: Logger;
+    [REQUEST_ID]: string;
+    startTime: number;
 }
 
 type Config = {
@@ -19,62 +18,34 @@ type Config = {
 }
 
 export const logRequest = (config?: Config): RequestHandler => {
-    return function (req: LoggerRequest, resp: LoggerResponse, next: NextFunction) {
-        resp.start_time = process.hrtime.bigint();
+    const mainLogger = createLogger();
 
-        createLogger({
-            name: process.env.npm_package_name as string,
-            request: req,
-            serializers: {
-                req: (req: LoggerRequest) => {
-                    const data = {
-                        method: req.method,
-                        url: req.url,
-                    };
-
-                    if (config?.requestCb) {
-                        return { ...data, ...config.requestCb(req) }
-                    }
-
-                    return data;
-                },
-                resp: (resp: LoggerResponse) => {
-                    const data = {
-                        time: Number(BigInt(resp.end_time ?? 0) - BigInt(resp.start_time ?? 0)) / 1000000000,
-                        error_id: resp.sentry ?? '',
-                        status_code: resp.statusCode
-                    };
-
-                    if (config?.responseCb) {
-                        return { ...data, ...config?.responseCb(resp) }
-                    }
-
-                    return data;
-                }
-            }
+    return function (req: LoggerRequest, resp: Response, next: NextFunction) {
+        req.startTime = Date.now();
+        const logger = mainLogger.child({
+            [REQUEST_ID]: req.get(REQUEST_HEADER_ID) || ulid(),
+            url: req.url,
+            method: req.method,
+            ...(config?.requestCb ? config.requestCb(req) : {})
         });
 
         resp.on('finish', () => {
-            resp.end_time = process.hrtime.bigint();
-            req.logger?.info({ resp: resp }, 'Request end');
+            logger.info({
+                time: Date.now() - req.startTime,
+                status_code: resp.statusCode,
+                ...(config?.responseCb ? config.responseCb(resp) : {})
+            }, 'request_end');
         });
 
-        req.logger?.info({ req }, 'Request start');
+        req.logger = logger;
         next();
-    }
+    } as RequestHandler
 }
 
-export const createLogger = (opt: LoggerOptions & {request?: LoggerRequest}): Logger => {
-    const { request, ...options } = opt;
-    const logger = Logger.createLogger(options);
-
-    if (request) {
-        const id = (request.headers['x-req-id'] ? request.headers['x-req-id'] : ulid()) as string;
-        request.logger = logger.child({ req_id: id });
-        request.req_id = id;
-    }
-
-    return logger;
+export const createLogger = (opt: Record<string, string> = {}): Logger => {
+    const pkg = JSON.parse(fs.readFileSync('package.json').toString());
+    const { name, version } = pkg;
+    return Logger.createLogger({ name, version, ...opt });
 };
 
 
