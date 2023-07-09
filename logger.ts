@@ -22,8 +22,9 @@ export const logRequest = (config?: Config): RequestHandler => {
 
     return function (req: LoggerRequest, resp: Response, next: NextFunction) {
         req.startTime = Date.now();
+        const requestId = req.get(REQUEST_HEADER_ID) || ulid();
         const logger = mainLogger.child({
-            [REQUEST_ID]: req.get(REQUEST_HEADER_ID) || ulid(),
+            [REQUEST_ID]: requestId,
             url: req.url,
             method: req.method,
             ...(config?.requestCb ? config.requestCb(req) : {})
@@ -38,6 +39,7 @@ export const logRequest = (config?: Config): RequestHandler => {
         });
 
         req.logger = logger;
+        req[REQUEST_ID] = requestId;
         next();
     } as RequestHandler
 }
