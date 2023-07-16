@@ -2,6 +2,7 @@ import Logger from 'bunyan';
 import { NextFunction, Request, RequestHandler, Response } from 'express';
 import * as fs from 'fs';
 import { ulid } from 'ulid';
+import bytes from 'bytes';
 
 export const REQUEST_HEADER_ID = 'x-req-id';
 export const REQUEST_ID = 'req_id'
@@ -15,6 +16,7 @@ export type LoggerRequest = Request & {
 type Config = {
     requestCb?: (r: Request) => Record<string, string>;
     responseCb?: (r: Response) => Record<string, string>;
+    traceMemory?: 'minimal' | 'verbose';
 }
 
 export const logRequest = (config?: Config): RequestHandler => {
@@ -31,10 +33,23 @@ export const logRequest = (config?: Config): RequestHandler => {
         });
 
         resp.on('finish', () => {
+            let memoryInfo: Record<string, string> = {};
+
+            if (config?.traceMemory && ['minimal', 'verbose'].includes(config.traceMemory)) {
+                memoryInfo = Object.entries(process.memoryUsage())
+                    .filter(([k]) => config.traceMemory === 'verbose' ? true : k === 'rss')
+                    .reduce((a, values) => {
+                        const [k, v] = values;
+                        a[k] = bytes(v, { thousandsSeparator: ' ' });
+                        return a;
+                    }, {} as Record<string, string>)
+            }
+
             logger.info({
                 time: Date.now() - req.startTime,
                 status_code: resp.statusCode,
-                ...(config?.responseCb ? config.responseCb(resp) : {})
+                ...(config?.responseCb ? config.responseCb(resp) : {}),
+                ...memoryInfo
             }, 'request_end');
         });
 
