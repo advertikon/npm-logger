@@ -1,3 +1,10 @@
+# [1.9.0](https://github.com/advertikon/npm-logger/compare/v1.8.0...v1.9.0) (2023-07-16)
+
+
+### Features
+
+* add meemory tracing ([3eea9c5](https://github.com/advertikon/npm-logger/commit/3eea9c5d44fba04ffc5ee8e7af352c6d16eee9f0))
+
 # [1.8.0](https://github.com/advertikon/npm-logger/compare/v1.7.0...v1.8.0) (2023-07-09)
 
 
