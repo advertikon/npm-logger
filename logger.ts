@@ -17,10 +17,11 @@ type Config = {
     requestCb?: (r: Request) => Record<string, string>;
     responseCb?: (r: Response) => Record<string, string>;
     traceMemory?: 'minimal' | 'verbose';
+    logger?: Logger
 }
 
 export const logRequest = (config?: Config): RequestHandler => {
-    const mainLogger = createLogger();
+    const mainLogger = config?.logger || createLogger();
 
     return function (req: LoggerRequest, resp: Response, next: NextFunction) {
         req.startTime = Date.now();
