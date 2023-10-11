@@ -1,3 +1,10 @@
+## [1.9.1](https://github.com/advertikon/npm-logger/compare/v1.9.0...v1.9.1) (2023-10-11)
+
+
+### Bug Fixes
+
+* pass logger via config ([36ddf81](https://github.com/advertikon/npm-logger/commit/36ddf8177782e53b8928d10cb9513e2567a09308))
+
 # [1.9.0](https://github.com/advertikon/npm-logger/compare/v1.8.0...v1.9.0) (2023-07-16)
 
 
