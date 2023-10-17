@@ -1,3 +1,10 @@
+## [1.9.2](https://github.com/advertikon/npm-logger/compare/v1.9.1...v1.9.2) (2023-10-17)
+
+
+### Bug Fixes
+
+* pass request to onReaponce callback ([96080c6](https://github.com/advertikon/npm-logger/commit/96080c673d0784a82becb471ab999801ad8324bf))
+
 ## [1.9.1](https://github.com/advertikon/npm-logger/compare/v1.9.0...v1.9.1) (2023-10-11)
 
 
