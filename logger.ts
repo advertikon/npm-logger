@@ -15,7 +15,7 @@ export type LoggerRequest = Request & {
 
 type Config = {
     requestCb?: (r: Request) => Record<string, string>;
-    responseCb?: (r: Response) => Record<string, string>;
+    responseCb?: (req: Request, resp: Response) => Record<string, string>;
     traceMemory?: 'minimal' | 'verbose';
     logger?: Logger
 }
@@ -49,7 +49,7 @@ export const logRequest = (config?: Config): RequestHandler => {
             logger.info({
                 time: Date.now() - req.startTime,
                 status_code: resp.statusCode,
-                ...(config?.responseCb ? config.responseCb(resp) : {}),
+                ...(config?.responseCb ? config.responseCb(req, resp) : {}),
                 ...memoryInfo
             }, 'request_end');
         });
