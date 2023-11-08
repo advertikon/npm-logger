@@ -1,3 +1,10 @@
+## [1.9.3](https://github.com/advertikon/npm-logger/compare/v1.9.2...v1.9.3) (2023-11-08)
+
+
+### Bug Fixes
+
+* fix date/duration dispaying ([0dea1e8](https://github.com/advertikon/npm-logger/commit/0dea1e806bbe82d26fb12fadc0ac31cf1227be23))
+
 ## [1.9.2](https://github.com/advertikon/npm-logger/compare/v1.9.1...v1.9.2) (2023-10-17)
 
 
