@@ -1,3 +1,10 @@
+## [1.9.4](https://github.com/advertikon/npm-logger/compare/v1.9.3...v1.9.4) (2023-11-08)
+
+
+### Bug Fixes
+
+* do not override time field ([dc49594](https://github.com/advertikon/npm-logger/commit/dc49594bf4cc21f9bd3cda1b5c5d44ec7ed6522d))
+
 ## [1.9.3](https://github.com/advertikon/npm-logger/compare/v1.9.2...v1.9.3) (2023-11-08)
 
 
