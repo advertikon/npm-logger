@@ -47,7 +47,6 @@ export const logRequest = (config?: Config): RequestHandler => {
             }
 
             logger.info({
-                time: new Date().toLocaleString(),
                 duration: Date.now() - req.startTime,
                 status_code: resp.statusCode,
                 ...(config?.responseCb ? config.responseCb(req, resp) : {}),
