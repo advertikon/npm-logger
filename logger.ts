@@ -46,7 +46,7 @@ export const logRequest = (config?: Config): RequestHandler => {
                     }, {} as Record<string, string>)
             }
 
-            logger.info({
+            (resp.statusCode <= 400 ? logger.info : logger.warn)({
                 duration: Date.now() - req.startTime,
                 status_code: resp.statusCode,
                 ...(config?.responseCb ? config.responseCb(req, resp) : {}),
