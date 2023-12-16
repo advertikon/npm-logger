@@ -1,3 +1,10 @@
+## [1.10.1](https://github.com/advertikon/npm-logger/compare/v1.10.0...v1.10.1) (2023-12-16)
+
+
+### Bug Fixes
+
+* set log status as warn in request status is 400 ([f3c19f9](https://github.com/advertikon/npm-logger/commit/f3c19f91f4838e56fa9ec9dd69b147015ccf0c21))
+
 # [1.10.0](https://github.com/advertikon/npm-logger/compare/v1.9.4...v1.10.0) (2023-12-16)
 
 
