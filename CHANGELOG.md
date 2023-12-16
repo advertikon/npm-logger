@@ -1,3 +1,10 @@
+# [1.10.0](https://github.com/advertikon/npm-logger/compare/v1.9.4...v1.10.0) (2023-12-16)
+
+
+### Features
+
+* set request log status to warn if status code >= 400 ([dae374e](https://github.com/advertikon/npm-logger/commit/dae374eefc04a8c73a96e0893b13569a903684b3))
+
 ## [1.9.4](https://github.com/advertikon/npm-logger/compare/v1.9.3...v1.9.4) (2023-11-08)
 
 
