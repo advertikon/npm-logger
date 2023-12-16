@@ -1,3 +1,10 @@
+## [1.10.2](https://github.com/advertikon/npm-logger/compare/v1.10.1...v1.10.2) (2023-12-16)
+
+
+### Bug Fixes
+
+* fix issue "attempt to log with an unbound log method" ([527a987](https://github.com/advertikon/npm-logger/commit/527a9871016efbc1aafda90614eaf1a813220926))
+
 ## [1.10.1](https://github.com/advertikon/npm-logger/compare/v1.10.0...v1.10.1) (2023-12-16)
 
 
