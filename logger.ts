@@ -17,11 +17,13 @@ type Config = {
     requestCb?: (r: Request) => Record<string, string>;
     responseCb?: (req: Request, resp: Response) => Record<string, string>;
     traceMemory?: 'minimal' | 'verbose';
-    logger?: Logger
+    logger?: Logger,
+    version?: string;
+    name?: string;
 }
 
 export const logRequest = (config?: Config): RequestHandler => {
-    const mainLogger = config?.logger || createLogger();
+    const mainLogger = config?.logger ?? createLogger({ version: config?.version, name: config?.name });
 
     return function (req: LoggerRequest, resp: Response, next: NextFunction) {
         req.startTime = Date.now();
@@ -60,10 +62,17 @@ export const logRequest = (config?: Config): RequestHandler => {
     } as RequestHandler
 }
 
-export const createLogger = (opt: Record<string, string> = {}): Logger => {
-    const pkg = JSON.parse(fs.readFileSync('package.json').toString());
-    const { name, version } = pkg;
-    return Logger.createLogger({ name, version, ...opt });
+export const createLogger = (opt: Record<string, string | undefined> = {}): Logger => {
+    let version = opt.version;
+    let name = opt.name;
+
+    if (!version || !name) {
+        const pkg = JSON.parse(fs.readFileSync('package.json').toString());
+        version = version ?? pkg.version;
+        name = name ?? pkg.name;
+    }
+
+    return Logger.createLogger({ name: name as string, version, ...opt });
 };
 
 
