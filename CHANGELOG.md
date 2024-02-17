@@ -1,3 +1,10 @@
+# [1.11.0](https://github.com/advertikon/npm-logger/compare/v1.10.2...v1.11.0) (2024-02-17)
+
+
+### Features
+
+* add option to pass version and package name to constructor ([639bfee](https://github.com/advertikon/npm-logger/commit/639bfeee61f41cf98dc6b60f27a88826e835f506))
+
 ## [1.10.2](https://github.com/advertikon/npm-logger/compare/v1.10.1...v1.10.2) (2023-12-16)
 
 
