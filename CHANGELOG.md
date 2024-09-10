@@ -1,3 +1,10 @@
+# [1.12.0](https://github.com/advertikon/npm-logger/compare/v1.11.0...v1.12.0) (2024-09-10)
+
+
+### Features
+
+* add logLevel ([3f5f88f](https://github.com/advertikon/npm-logger/commit/3f5f88f2b7eecfa3a9252237057af5b0a5743b91))
+
 # [1.11.0](https://github.com/advertikon/npm-logger/compare/v1.10.2...v1.11.0) (2024-02-17)
 
 
